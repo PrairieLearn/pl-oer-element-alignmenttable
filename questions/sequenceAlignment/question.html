@@ -1,0 +1,88 @@
+<pl-card>
+  1)
+  <pl-question-panel>
+    <p>
+      Consider two DNA sequences $\mathbf{v} = \mathrm{ {{params.v}} }$ and
+      $\mathbf{w} = \mathrm{ {{params.w}} }$.
+    </p>
+    <p>
+      In this exercise, we will align the two sequences using a score of +1 for
+      a match, -1 for a mismatch, and -1 for a insertion/deletion (i.e. a gap
+      penalty of 1).
+    </p>
+    <p>
+      Given the following DP table and the optimal path, fill out the aligned
+      sequence $\mathbf{v'}$ and $\mathbf{w'}$.
+    </p>
+    <pl-alignment-table
+      answers-name="q1"
+      is-material="true"
+      type="global"
+    ></pl-dp-table>
+  </pl-question-panel>
+
+  <p style="text-align: center; font-family: monospace">
+    <pl-string-input
+      answers-name="str_input1"
+      correct-answer="{{params.str1}}"
+      label="&lt;span style='min-width: 2em'&gt;$\mathbf{v'}$&lt;/span&gt;"
+    ></pl-string-input>
+    <pl-string-input
+      answers-name="str_input2"
+      correct-answer="{{params.str2}}"
+      label="&lt;span style='min-width: 2em'&gt;$\mathbf{w'}$&lt;/span&gt;"
+    ></pl-string-input>
+  </p>
+</pl-card>
+
+<pl-card>
+  2)
+  <pl-question-panel>
+    <p>
+      Consider two DNA sequences $\mathbf{v} = \mathrm{ {{params.v}} }$ and
+      $\mathbf{w} = \mathrm{ {{params.w}} }$.
+    </p>
+    <p>
+      In this exercise, we will align the two sequences using a score of +1 for
+      a match, -1 for a mismatch, and -1 for a insertion/deletion (i.e. a gap
+      penalty of 1).
+    </p>
+  </pl-question-panel>
+
+  <pl-question-panel>
+    <p>
+      You are provided with the DP table. Highlight the optimal path and score.
+    </p>
+  </pl-question-panel>
+
+  <pl-alignment-table answers-name="q2" path-only="true" type="fitting"></pl-dp-table>
+
+  <p style="text-align: center">
+    <pl-integer-input
+      answers-name="int_input"
+      label="Score"
+      correct-answer="{{params.int1}}"
+    ></pl-integer-input>
+  </p>
+</pl-card>
+
+<pl-card>
+  3)
+  <pl-question-panel>
+    <p>
+      Consider two DNA sequences $\mathbf{v} = \mathrm{ {{params.v}} }$ and
+      $\mathbf{w} = \mathrm{ {{params.w}} }$.
+    </p>
+    <p>
+      In this exercise, we will align the two sequences using a score of +1 for
+      a match, -1 for a mismatch, and -1 for a insertion/deletion (i.e. a gap
+      penalty of 1).
+    </p>
+  </pl-question-panel>
+
+  <pl-question-panel>
+    <p>Complete a local alignment of the two sequnces</p>
+  </pl-question-panel>
+
+  <pl-alignment-table answers-name="q3" type="local"></pl-dp-table>
+</pl-card>

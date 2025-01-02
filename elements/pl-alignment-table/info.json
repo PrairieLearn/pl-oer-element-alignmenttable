@@ -1,0 +1,7 @@
+{
+    "controller": "pl-dp-table.py",
+    "dependencies": {
+      "elementScripts": ["pl-dp-table.js"],
+      "elementStyles": ["pl-dp-table.css"]
+    }
+}

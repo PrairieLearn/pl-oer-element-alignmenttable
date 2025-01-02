@@ -1,0 +1,219 @@
+
+
+/* Background color for when boolean is true */
+.dp-table td.highlight-true,
+.dp-table input[type="number"].highlight-true,
+.dp-table button.highlight-true {
+    background-color: #ffeb3b; /* Or any other color when boolean is true */
+}
+
+/* Background color for when boolean is false */
+.dp-table td.highlight-false,
+.dp-table input[type="number"].highlight-false,
+.dp-table button.highlight-false {
+    background-color: #f9fafb; /* Default light gray background when boolean is false */
+}
+
+
+/* Hide the spinner arrows in WebKit browsers (Chrome, Safari, Edge) */
+.dp-table input[type="number"]::-webkit-outer-spin-button,
+.dp-table input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Hide the spinner arrows in Firefox */
+.dp-table input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Container block adjustments */
+.t-tbl-block {
+    margin: 10px 0;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.dp-table {
+    width: auto;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f5f7fa;
+    table-layout: fixed;
+}
+
+.dp-table th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #d1d5db;
+}
+
+.dp-table th:first-child,
+.dp-table td:first-child {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border-bottom: 2px solid #d1d5db;
+    border-right: 2px solid #d1d5db;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.dp-table td {
+    background-color: #f9fafb;
+    border: 1px solid #d1d5db;
+    color: #374151;
+    vertical-align: middle;
+    text-align: center;
+    padding: 0;
+    /* Ensure no padding */
+    position: relative;
+}
+
+/* Placeholder color */
+.dp-table input::placeholder {
+    color: rgb(234, 110, 131);
+    opacity: 1;
+}
+
+/* Disabled input styling */
+.dp-table input[disabled] {
+    background-color: #e5e7eb;
+    color: #6b7280;
+    border: 1px solid #cbd5e1;
+}
+
+/* Badges for correctness */
+.dp-table .badge-success {
+    background-color: #22c55e;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.dp-table .badge-danger {
+    background-color: #ef4444;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.dp-table .badge-warning {
+    background-color: #fbbf24;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+/* Focus and hover states for input fields */
+.dp-table input[type="number"]:hover,
+.dp-table input[type="number"]:focus,
+.dp-table .btn-highlight:hover,
+.dp-table .btn-highlight:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+}
+
+/* Ensure that both width and height are equal to make the cell a square */
+.dp-table th,
+.dp-table td {
+    width: 60px;
+    /* Set width */
+    height: 60px;
+    /* Set height to the same value */
+    min-width: 60px;
+    /* Ensure the minimum width stays the same */
+    min-height: 60px;
+    /* Ensure the minimum height stays the same */
+    text-align: center;
+    vertical-align: middle;
+    padding: 0;
+    /* Ensure no padding inside the cell */
+}
+
+/* Flexbox container to stack input and button vertically with no gap */
+.input-container {
+    position: relative;
+    /* Ensure relative positioning */
+    display: flex;
+    flex-direction: column;
+    /* Stack items vertically */
+    justify-content: center;
+    /* Center items vertically */
+    align-items: center;
+    /* Center items horizontally */
+    width: 100%;
+    /* Full width of the cell */
+    height: 100%;
+    /* Full height of the cell */
+    /* Remove gap between input and button */
+}
+
+/* Adjust input field size to fit inside the square cell */
+.dp-table input[type="number"] {
+    width: 100%;
+    /* Adjust input width to 70% of the cell */
+    height: 70%;
+    /* Adjust input height */
+    padding: 5px;
+    /* Keep padding for appearance */
+    text-align: center;
+    /* Center text inside input */
+    margin-bottom: 0;
+    /* Ensure no margin at the bottom */
+    background-color: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px 4px 0 0;
+}
+
+/* Adjust button size and position directly below input */
+.dp-table .btn-highlight {
+    /* Smaller padding to fit below input */
+    background-color: #f9fafb;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    /* Button width to match input width */
+    height: 30%;
+    text-align: center;
+    margin-top: 0;
+    /* Ensure no margin at the top */
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 0%;
+}
+
+/* Row hover effect */
+.dp-table tr:hover {
+    background-color: #e2e8f0;
+}
+
+.striped-highlight {
+    background: repeating-linear-gradient(
+        45deg,
+        #ffeb3b,
+        #ffeb3b 5px,
+        #fff 5px,
+        #fff 10px
+    );
+}
+
+.striped-background {
+    background: repeating-linear-gradient(
+        45deg,
+        lightgray,
+        lightgray 5px,
+        #fff 5px,
+        #fff 10px
+    );
+}
