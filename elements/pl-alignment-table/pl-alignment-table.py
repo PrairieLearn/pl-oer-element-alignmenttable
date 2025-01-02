@@ -97,7 +97,7 @@ def render(element_html: str, data: pl.QuestionData) -> str:
     show_score = pl.get_boolean_attrib(element, "show-score", SHOW_SCORE_DEFAULT)
 
     raw_submitted_answer = data["raw_submitted_answers"].get(name)
-    parse_error = data["format_errors"].get(name)
+    parse_error = data["format_errors"].get(name, False)
     score = data["partial_scores"].get(name, None)
     correct = False
     incorrect = False
