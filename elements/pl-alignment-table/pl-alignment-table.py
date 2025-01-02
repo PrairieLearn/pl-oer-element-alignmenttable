@@ -214,11 +214,6 @@ def render(element_html: str, data: pl.QuestionData) -> str:
             "partial": partial,
             "incorrect_message": feedback,
         }
-        html_params["error"] = html_params.get(
-            "parse_error", False
-        ) or html_params.get(
-            "missing_input", False
-        )
         for row_index in range(num_rows):
             for col_index in range(num_columns):
                 answer_name = f"{name}_{row_index}_{col_index}_p"
@@ -305,9 +300,6 @@ def render(element_html: str, data: pl.QuestionData) -> str:
                 if show_score and score is not None:
                     score_type, score_value = pl.determine_score_params(score)
                     html_params[score_type] = score_value
-        html_params["error"] = html_params["parse_error"] or html_params.get(
-            "missing_input", False
-        )
         return chevron.render(template, html_params).strip()
 
     elif data["panel"] == "answer":
