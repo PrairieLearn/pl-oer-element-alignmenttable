@@ -1,7 +1,7 @@
 {
-    "controller": "pl-dp-table.py",
+    "controller": "pl-alignment-table.py",
     "dependencies": {
-      "elementScripts": ["pl-dp-table.js"],
-      "elementStyles": ["pl-dp-table.css"]
+      "elementScripts": ["pl-alignment-table.js"],
+      "elementStyles": ["pl-alignment-table.css"]
     }
 }
