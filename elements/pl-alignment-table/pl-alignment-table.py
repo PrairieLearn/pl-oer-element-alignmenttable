@@ -178,8 +178,8 @@ def render(element_html: str, data: pl.QuestionData) -> str:
     if data["panel"] == "question":
         info_template = "{{#format}}<p>{{{grading_text}}}</p>{{/format}}"
         grading_text = (
-            "For each cell, click upper half of the cell to enter number for the upper half. Use arrow keys to quickly navigate through the table. <br />"
-            "Use the <i class='bi bi-highlighter fa-xs'></i> button at the bottom of each cell to hightlight ONE path that represents the optimum alignment."
+            "Click the upper half of each cell to enter a number. You can use the arrow keys to quickly navigate through the table.<br />"
+            "Use the <i class='bi bi-highlighter fa-xs'></i> button to hightlight a cell and create a path that represents the optimum alignment."
         )
         editable = data["editable"]
         info_params = {
@@ -439,7 +439,7 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
                 a_sub = data["submitted_answers"].get(answer_name, None)
                 if a_tru != a_sub:
                     if incorrect_message == "":
-                        incorrect_message = f"You made a mistake when filling the number ({v_string[row_index]}, {w_string[col_index]}) at row {row_index}, column {col_index} (Indicated by a stripe pattern). Please correct it and check all dependent cells.\n You will not get any feedback on the path before you get all numbers correct."
+                        incorrect_message = f"Number ({v_string[row_index]}, {w_string[col_index]}) at row {row_index}, column {col_index} is incorrect (as indicated by a stripe pattern). Please correct it and check all dependent cells.\n You will only get feedback on the path when all numbers are correct."
                 else:
                     score_sum += 1
 
@@ -464,18 +464,18 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
             # global alignment must start at (0, 0)
             if i != 0 or j != 0:
                 if incorrect_message == "":
-                    incorrect_message = "You path has wrong ending index. Global alignment must start at (0, 0). Please correct it and check all dependent cells."
+                    incorrect_message = "You path has the wrong ending index. Global alignment must start at (0, 0). Please correct your mistake and check all dependent cells."
                 path_score = 0
         elif alignment_type == "fitting":
             # fitting alignment  must start at or (0, j)
             if i != 0:
                 if incorrect_message == "":
-                    incorrect_message = "You path has wrong ending index. Fitting alignment must start at the first row. Please correct it and check all dependent cells."
+                    incorrect_message = "You path has the wrong ending index. Fitting alignment must start at the first row. Please correct your mistake and check all dependent cells."
                 path_score = 0
         a_sub = data["correct_answers"].get(f"{name}_{i}_{j}", None)
         if a_sub is not None and a_sub != 0:
             if incorrect_message == "":
-                incorrect_message = "You path has wrong ending index. Please correct it and check all dependent cells."
+                incorrect_message = "You path has the wrong ending index. Please correct your mistake and check all dependent cells."
             path_score = 0
         # check end index
         i, j = highlighted_path[-1]
@@ -483,19 +483,19 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
             # global alignment must end at (len(v), len(w))
             if i != num_rows - 1 or j != num_columns - 1:
                 if incorrect_message == "":
-                    incorrect_message = "You path has wrong starting index. Global alignment must end at (len(v), len(w)). Please correct it and check all dependent cells."
+                    incorrect_message = "You path has the wrong starting index. Global alignment must end at (len(v), len(w)). Please correct your mistake and check all dependent cells."
                 path_score = 0
         elif alignment_type == "fitting":
             # fitting alignment  must end at or (i, len(w))
             if i != num_rows - 1:
                 if incorrect_message == "":
-                    incorrect_message = "You path has wrong starting index. Fitting alignment must end at the last row). Please correct it and check all dependent cells."
+                    incorrect_message = "You path has the wrong starting index. Fitting alignment must end at the last row. Please correct your mistake and check all dependent cells."
                 path_score = 0
         a_sub = data["correct_answers"].get(f"{name}_{i}_{j}", None)
         score = data["correct_answers"].get(f"{name}_score", None)
         if a_sub is not None and score is not None and a_sub != score:
             if incorrect_message == "":
-                incorrect_message = "You path has wrong starting index. Please correct it and check all dependent cells."
+                incorrect_message = "You path has the wrong starting index. Please correct your mistake and check all dependent cells."
             path_score = 0
         if path_score == 1:
             p_i, p_j, i, j = -1, -1, 0, 0
@@ -529,7 +529,7 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
                         path_score = 0
                     if path_score == 0:
                         if incorrect_message == "":
-                            incorrect_message = f"You path is incorrect at ({v_string[i]}, {w_string[j]}) at row {i}, column {j} (Indicated by a stripe pattern). Please correct it and check all dependent cells."
+                            incorrect_message = f"The selected path is incorrect at ({v_string[i]}, {w_string[j]}) at row {i}, column {j} (as indicated by a stripe pattern). Please correct it and check all dependent cells."
                         break
                 p_i, p_j = i, j
     if path_only:
