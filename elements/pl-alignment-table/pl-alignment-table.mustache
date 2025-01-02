@@ -145,11 +145,11 @@
     <p class="text-center"> You got it all correct! </p>
 </div>
 {{/correct}}
-{{^correct}}
+{{#incorrect}}
 <div class="border border-danger border-2 rounded-3">
     <p class="text-center"> {{incorrect_message}} </p>
 </div>
-{{/correct}}
+{{/incorrect}}
 <div class="t-tbl-block">
     <table class="dp-table rounded-3 overflow-hidden">
         <thead>
