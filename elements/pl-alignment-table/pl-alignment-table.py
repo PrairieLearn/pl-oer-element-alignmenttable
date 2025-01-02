@@ -214,7 +214,9 @@ def render(element_html: str, data: pl.QuestionData) -> str:
             "partial": partial,
             "incorrect_message": feedback,
         }
-        html_params["error"] = html_params["parse_error"] or html_params.get(
+        html_params["error"] = html_params.get(
+            "parse_error", False
+        ) or html_params.get(
             "missing_input", False
         )
         for row_index in range(num_rows):
