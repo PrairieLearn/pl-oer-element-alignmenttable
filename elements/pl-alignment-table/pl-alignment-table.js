@@ -12,17 +12,17 @@ function highlightCell(button) {
     .querySelector(`.input-container[data-cell="${cellIdentifier}"]`)
     .closest("td");
   const input = cellElement.querySelector('input[type="number"]');
-  const computedStyle = window.getComputedStyle(input);
-  const backgroundColor = computedStyle.backgroundColor;
+  
 
-  if (backgroundColor === yellow) {
-    input.style.backgroundColor = lightGray;
-    button.style.backgroundColor = lightGray;
-  } else if (backgroundColor === lightGray) {
-    input.style.backgroundColor = yellow;
-    button.style.backgroundColor = yellow;
-  } else {
-    console.log("Error: input.style.backgroundColor is not defined");
+  if (input.classList.contains("striped-highlight") || input.classList.contains("highlight-true")) {
+    input.classList.remove("striped-highlight");
+    input.classList.remove("highlight-true");
+    input.classList.add("highlight-false");
+  }
+  else {
+    input.classList.remove("striped-background");
+    input.classList.remove("highlight-false");
+    input.classList.add("highlight-true");
   }
 
   const hiddenInput = cellElement.querySelector('input[type="hidden"]');

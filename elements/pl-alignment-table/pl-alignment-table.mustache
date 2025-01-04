@@ -23,11 +23,11 @@
     <p class="text-center"> You got it all correct! </p>
 </div>
 {{/correct}}
-{{#incorrect}}
+{{#incorrect_message}}
 <div class="border border-danger border-2 rounded-3">
     <p class="text-center"> {{incorrect_message}} </p>
 </div>
-{{/incorrect}}
+{{/incorrect_message}}
 <div class="t-tbl-block">
     <table class="dp-table rounded-3 overflow-hidden">
         <thead>
@@ -61,7 +61,7 @@
                             {{/path_only}}
                             {{^path_only}}
                             <input type="number" name="{{name}}_{{row_index}}_{{col_index}}" 
-                                class="form-control {{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}" 
+                                class="form-control {{#boolean}}{{#first_incorrect}}striped-highlight{{/first_incorrect}}{{^first_incorrect}}highlight-true{{/first_incorrect}}{{/boolean}}{{^boolean}}{{#first_incorrect}}striped-background{{/first_incorrect}}{{^first_incorrect}}highlight-false{{/first_incorrect}}{{/boolean}}" 
                                 onclick="this.select()"
                                 value="{{value}}" placeholder="{{placeholder}}"/>
                             {{/path_only}}
@@ -140,16 +140,6 @@
     {{#suffix}}<span>{{suffix}}</span>{{/suffix}}
 </span>
 {{/parse_error}}
-{{#correct}}
-<div class="border border-success border-2 rounded-3">
-    <p class="text-center"> You got it all correct! </p>
-</div>
-{{/correct}}
-{{#incorrect}}
-<div class="border border-danger border-2 rounded-3">
-    <p class="text-center"> {{incorrect_message}} </p>
-</div>
-{{/incorrect}}
 <div class="t-tbl-block">
     <table class="dp-table rounded-3 overflow-hidden">
         <thead>
@@ -165,7 +155,7 @@
             <tr>
                 <td>{{v_letter}}</td>
                 {{#data}}
-                    <td class="{{#boolean}}{{#first_incorrect}}striped-highlight{{/first_incorrect}}{{^first_incorrect}}highlight-true{{/first_incorrect}}{{/boolean}}{{^boolean}}{{#first_incorrect}}striped-background{{/first_incorrect}}{{^first_incorrect}}highlight-false{{/first_incorrect}}{{/boolean}}">
+                    <td class="{{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}">
                         {{value}}
                     </td>
                 {{/data}}
