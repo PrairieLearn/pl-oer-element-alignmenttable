@@ -1,6 +1,25 @@
-<pl-card>
-  1)
+<pl-question-panel>
+  <p>
+    The questions below were designed to showcase the different features of
+    <code>pl-alignment-table</code>. The goal of this element is to simplify 
+    questions related to sequence alignment tables. This element requires some
+    additional configuration in the question's <code>server.py</code> file,
+    which are documented in the README file and this sample question's code
+    that are available in the element's repository.
+  </p>
+</pl-question-panel>
+
+<div class="card my-2">
+  <div class="card-header">Part 1</div>
+  <div class="card-body">
   <pl-question-panel>
+    <p>
+      The following question demonstrates how alignment tables can be used
+      as non-interactive question materials. Note that for this question,
+      both sequences are randomized using backend code that is provided with
+      the element itself. The <code>is-material</code> attribute makes the
+      element non-interactive.
+    </p>
     <p>
       Consider two DNA sequences $\mathbf{v} = \mathrm{ {{params.v}} }$ and
       $\mathbf{w} = \mathrm{ {{params.w}} }$.
@@ -21,23 +40,31 @@
     ></pl-dp-table>
   </pl-question-panel>
 
-  <p style="text-align: center; font-family: monospace">
-    <pl-string-input
-      answers-name="str_input1"
-      correct-answer="{{params.str1}}"
-      label="&lt;span style='min-width: 2em'&gt;$\mathbf{v'}$&lt;/span&gt;"
-    ></pl-string-input>
-    <pl-string-input
-      answers-name="str_input2"
-      correct-answer="{{params.str2}}"
-      label="&lt;span style='min-width: 2em'&gt;$\mathbf{w'}$&lt;/span&gt;"
-    ></pl-string-input>
-  </p>
-</pl-card>
+    <p style="text-align: center; font-family: monospace">
+      <pl-string-input
+        answers-name="str_input1"
+        correct-answer="{{params.str1}}"
+        label="&lt;span style='min-width: 2em'&gt;$\mathbf{v'}$&lt;/span&gt;"
+      ></pl-string-input>
+      <pl-string-input
+        answers-name="str_input2"
+        correct-answer="{{params.str2}}"
+        label="&lt;span style='min-width: 2em'&gt;$\mathbf{w'}$&lt;/span&gt;"
+      ></pl-string-input>
+    </p>
+  </div>
+</div>
 
-<pl-card>
-  2)
+<div class="card my-2">
+  <div class="card-header">Part 2</div>
+  <div class="card-body">
   <pl-question-panel>
+    <p>
+      The following question demonstrates an interactive table where scores
+      are pre-computed and students only need to highlight the corresponding
+      path. The table is automatically pre-filled and the path can be auto-graded.
+      The <code>path-only</code> attribute controls the degree of interactivity.
+    </p>
     <p>
       Consider two DNA sequences $\mathbf{v} = \mathrm{ {{params.v}} }$ and
       $\mathbf{w} = \mathrm{ {{params.w}} }$.
@@ -56,10 +83,18 @@
   </pl-question-panel>
 
   <pl-alignment-table answers-name="q2" path-only="true" type="fitting"></pl-dp-table>
-</pl-card>
+  </div>
+</div>
 
-<pl-card>
-  3)
+<div class="card my-2">
+  <div class="card-header">Part 3</div>
+  <div class="card-body">
+  <pl-question-panel>
+    <p>
+      The following table is fully interactive and students need to fill in both 
+      scores and highlight the corresponding path. The table is automatically graded,
+      and students receive feedback on incorrect cells and paths.
+    </p>
   <pl-question-panel>
     <p>
       Consider two DNA sequences $\mathbf{v} = \mathrm{ {{params.v}} }$ and
@@ -77,4 +112,5 @@
   </pl-question-panel>
 
   <pl-alignment-table answers-name="q3" type="local"></pl-dp-table>
-</pl-card>
+  </div>
+</div>
