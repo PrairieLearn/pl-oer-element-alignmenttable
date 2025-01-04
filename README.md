@@ -45,3 +45,23 @@ Note that this element requires a `server.py` script to fill in the table conten
 | `path-only`    | boolean (default: `false`) | Only relevant if `is-material` is `false`. If `true`, the table is displayed with all cells already filled, asking students to only select the correct path. |
 | `type`         | string (default: `global`) | Only relevant if `is-material` is `false`. Alignment type (`global`, `fitting`, or `local`); this affects path constraints checked during grading. |
 | `placeholder`  | string (default: ``) | Only relevant if `is-material` is `false`. Placeholder text for unfilled table cells. |
+
+
+### Sequence Generation
+
+The row and column headers for the alignment table (i.e., the two sequences to be aligned) are defined by the parameters `v` and `w`. These can be set manually in the question's `server.py` file, or randomized by calling the provided `generate_paired_sequences` function in the `paired_HMM.py` file in the `serverFilesCourse` folder. The following example shows how to use the function:
+
+```python
+from sequenceAlignment_autograder.paired_HMM import generate_paired_sequences
+
+sequence_length = 4
+data["params"]["v"], data["params"]["w"] = generate_paired_sequences(sequence_length)
+```
+
+In addition to the sequence length, the function can be custom-tailored using the following named parameters:
+
+- `alphabet` (default: `["A", "C", "G", "T"]`) defined the alphabet to be used in the sequences
+- `match_prob` (default: `0.3`) defines the probability for a match
+- `delta` (default: `0.2`) defines the probability for a gap opening
+- `epsilon` (default: `0.1`) defines the probability for a gap extension
+

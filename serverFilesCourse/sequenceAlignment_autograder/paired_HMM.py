@@ -1,42 +1,7 @@
 import random
 
-# Define the alphabet
-alphabet = ["A", "C", "G", "T"]
-
-# Define emission probabilities for the Match state (P)
-# Let's assume equal probability for matches and lower for mismatches
-match_emission_prob = {}
-match_prob = 0.3  # Probability for a match
-mismatch_prob = 1 - match_prob  # Probability for a mismatch
-
-for x in alphabet:
-    for y in alphabet:
-        if x == y:
-            match_emission_prob[(x, y)] = match_prob / len(alphabet)  # Divide equally among matches
-        else:
-            match_emission_prob[(x, y)] = (
-                mismatch_prob / (len(alphabet) * (len(alphabet) - 1))
-            )  # Divide equally among mismatches
-
-# Emission probabilities for Insert states (I and J)
-insert_emission_prob = {
-    c: 1 / 4 for c in alphabet
-}  # Equal probability for each character
-
-# Adjusted Delta (gap opening probability)
-delta = 0.2  # Smaller delta, less likely to open a gap
-
-# Adjusted Epsilon (gap extension probability)
-epsilon = 0.1  # Larger epsilon, more likely to extend a gap
-
-transition_prob = {
-    "M": {"M": 1 - 2 * delta, "I": delta, "J": delta},
-    "I": {"I": epsilon, "M": 1 - epsilon},
-    "J": {"J": epsilon, "M": 1 - epsilon},
-}
-
 # Function to choose the next state based on current state
-def next_state(current_state):
+def next_state(current_state, transition_prob):
     transitions = transition_prob[current_state]
     states = list(transitions.keys())
     probabilities = list(transitions.values())
@@ -44,7 +9,7 @@ def next_state(current_state):
 
 
 # Function to emit symbols based on the current state
-def emit_symbols(state):
+def emit_symbols(state, match_emission_prob, insert_emission_prob):
     if state == "M":
         pairs = list(match_emission_prob.keys())
         probabilities = list(match_emission_prob.values())
@@ -65,36 +30,47 @@ def emit_symbols(state):
 
 
 # Function to generate paired sequences
-def generate_paired_sequences(length):
+def generate_paired_sequences(length, alphabet=["A", "C", "G", "T"], match_prob = 0.3, delta = 0.2, epsilon = 0.1):
     sequence1 = []
     sequence2 = []
     state_sequence = []
+    match_emission_prob = {}
+    # Probability for a match
+    mismatch_prob = 1 - match_prob  # Probability for a mismatch
+
+    for x in alphabet:
+        for y in alphabet:
+            if x == y:
+                match_emission_prob[(x, y)] = match_prob / len(alphabet)  # Divide equally among matches
+            else:
+                match_emission_prob[(x, y)] = (
+                    mismatch_prob / (len(alphabet) * (len(alphabet) - 1))
+                )  # Divide equally among mismatches
+
+    # Emission probabilities for Insert states (I and J)
+    insert_emission_prob = {
+        c: 1 / 4 for c in alphabet
+    }  # Equal probability for each character
+
+    transition_prob = {
+        "M": {"M": 1 - 2 * delta, "I": delta, "J": delta},
+        "I": {"I": epsilon, "M": 1 - epsilon},
+        "J": {"J": epsilon, "M": 1 - epsilon},
+    }
 
     # Start from state 'M'
     current_state = "M"
     while len(sequence1) < length or len(sequence2) < length:
         state_sequence.append(current_state)
         # Emit symbols based on current state
-        s1, s2 = emit_symbols(current_state)
+        s1, s2 = emit_symbols(current_state, match_emission_prob, insert_emission_prob)
         if s1 != "-":
             sequence1.append(s1)
         if s2 != "-":
             sequence2.append(s2)
         # Transition to next state
-        current_state = next_state(current_state)
+        current_state = next_state(current_state, transition_prob)
     if len(sequence1) <= len(sequence2):
-        return "".join(sequence1), "".join(sequence2), state_sequence
+        return "".join(sequence1), "".join(sequence2)
     else:
-        return "".join(sequence2), "".join(sequence1), state_sequence
-
-def main():
-    # Example usage
-    seq_length = 3  # Desired length of sequences
-    seq1, seq2, states = generate_paired_sequences(seq_length)
-
-    print("Sequence 1:", seq1)
-    print("Sequence 2:", seq2)
-    print("State Path:", "".join(states))
-
-if __name__ == "__main__":
-    main()
+        return "".join(sequence2), "".join(sequence1)
