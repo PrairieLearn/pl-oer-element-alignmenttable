@@ -26,7 +26,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 <img src="example-alignment.png" width="500">
 
 ```html
-  <pl-dp-table answers-name="q3" type="local"></pl-dp-table>
+  <pl-dp-table answers-name="q2" type="local"></pl-dp-table>
 ```
 
 #### Pre-filled table with path highlighting only
@@ -34,7 +34,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 <img src="example-score.png" width="500">
 
 ```html
-  <pl-dp-table answers-name="q2" path-only="true" type="fitting"></pl-dp-table>
+  <pl-dp-table answers-name="q3" path-only="true" type="fitting"></pl-dp-table>
 ```
 
 ### Element Attributes
@@ -43,7 +43,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 | `answers-name` | string (required) | Unique identifier for the element |
 | `is-material`  | boolean (default: `false`) | If `true`, the table is displayed non-interactively as question material, with all cells already filled. |
 | `path-only`    | boolean (default: `false`) | Only relevant if `is-material` is `false`. If `true`, the table is displayed with all cells already filled, asking students to only select the correct path. |
-| `type`         | string (default: `global`) | Only relevant if `is-material` is `false`. Alignment type (`global`, `fitting`, or `local`); this affects path constraints checked during grading. |
+| `type`         | string (default: `global`) | Only relevant if `is-material` is `false`. Alignment type (`global`, `fitting`, or `local`); this affects feedback given to students during grading. |
 | `placeholder`  | string (default: ``) | Only relevant if `is-material` is `false`. Placeholder text for unfilled table cells. |
 
 
@@ -65,3 +65,16 @@ In addition to the sequence length, the function can be custom-tailored using th
 - `delta` (default: `0.2`) defines the probability for a gap opening
 - `epsilon` (default: `0.1`) defines the probability for a gap extension
 
+
+### Pre-filling and Grading Tables
+
+The element provides auto-graders that can be used to both generate the contents of question material tables and to grade student submissions. These auto-graders are available in the `serverFilesCourse` folder in the files `global_alignment.py`, `fitting_alignment.py`, and `local_alignment.py`. Simply import the grader(s) that match the desired alignment type and call the corresponding function (e.g., `global_alignment`). The following example shows how to use the function, and the other alignment types work analogously:
+
+```python
+from sequenceAlignment_autograder.global_alignment import global_alignment
+
+# This assumes that you have either generated or manually defined the sequences v and w as shown previously
+data["correct_answers"]["q1"] = global_alignment(data["params"]["v"], data["params"]["w"])
+```
+
+Note that the element will automatically pre-fill the path and/or table contents or use them for grading, based on the table attributes `is-material` and `path-only`. Also note that the chosen alignment type should match the table's `type` attribute. Only the answers defined in `data["correct_answers"]` are used for actual grading, but a type mismatch might lead to inconsistent feedback for students.

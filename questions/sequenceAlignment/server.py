@@ -10,15 +10,17 @@ from sequenceAlignment_autograder.fitting_alignment import fitting_align
 
 
 def generate(data):
+    # Generating randomized sequences that are used for all questions
     data["params"]["v"], data["params"]["w"] = generate_paired_sequences(4)
 
-    ###### Question 1 ########
+    # Computing the "correct answer" used to pre-fill the table and path displayed for Q1
     data["correct_answers"]["q1"] = global_alignment(data["params"]["v"], data["params"]["w"])
-    data["params"]["str1"], data["params"]["str2"] = global_alignment(data["params"]["v"], data["params"]["w"])[1].split("\n")
+
+    # Assigning the actual answer strings for the string inputs for Q1 
+    data["params"]["str1"], data["params"]["str2"] = data["correct_answers"]["q1"][1].split("\n")
     
-    ###### Question 2 ########
+    # Computing the correct answer used to pre-fill the table and grade the path for Q2
     data["correct_answers"]["q2"] = fitting_align(data["params"]["v"], data["params"]["w"])
-    data["params"]["int1"] = fitting_align(data["params"]["v"], data["params"]["w"])[3]
     
-    ###### Question 3 ########
+    # Computing the correct answer used to grade the table and path for Q3
     data["correct_answers"]["q3"] = local_align(data["params"]["v"], data["params"]["w"])

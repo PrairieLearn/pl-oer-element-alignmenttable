@@ -1,18 +1,7 @@
-keys = ["A", "C", "T", "G", "-"]
-delta = {}
-for i in range(len(keys)):
-    delta[keys[i]] = {
-        k: v
-        for (k, v) in zip(
-            keys, [1 if keys[i] == keys[j] else -1 for j in range(len(keys))]
-        )
-    }
-
 UP = (-1, 0)
 LEFT = (0, -1)
 TOPLEFT = (-1, -1)
 ORIGIN = (0, 0)
-
 
 def traceback_local(v, w, M, init_i, init_j, pointers):
     i, j = init_i, init_j
@@ -37,20 +26,31 @@ def traceback_local(v, w, M, init_i, init_j, pointers):
     return "".join(new_v[::-1]) + "\n" + "".join(new_w[::-1]), path
 
 
-def local_align(v, w):
+def local_align(v, w, alphabet = ["A", "C", "T", "G"]):
     """
     Returns the score of the maximum scoring alignment of all possible substrings of v and w.
 
-    :param: v
-    :param: w
-    :param: delta
+    :param: v The shorter of the two strings we are trying to align
+    :param: w The longer string among whose substrings we are doing global alignment
+    :param: alphabet Alphabet to use for generating the scoring function for the two strings
+
+    :returns: a tuple (M, alignment, path, score)
     """
+    alphabet.append("-")
+    delta = {}
+    for i in range(len(alphabet)):
+        delta[alphabet[i]] = {
+            k: v
+            for (k, v) in zip(
+                alphabet, [1 if alphabet[i] == alphabet[j] else -1 for j in range(len(alphabet))]
+            )
+        }
+
     M = [[0 for j in range(len(w) + 1)] for i in range(len(v) + 1)]
     pointers = [[ORIGIN for j in range(len(w) + 1)] for i in range(len(v) + 1)]
     score = None
     init_i, init_j = 0, 0
-    # YOUR CODE HERE
-    # raise NotImplementedError()
+
     for j in range(len(w) + 1):
         for i in range(len(v) + 1):
             max_list = []
