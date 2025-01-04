@@ -26,7 +26,7 @@ def traceback_local(v, w, M, init_i, init_j, pointers):
     return "".join(new_v[::-1]) + "\n" + "".join(new_w[::-1]), path
 
 
-def local_align(v, w, alphabet = ["A", "C", "T", "G"]):
+def local_alignment(v, w, alphabet = ["A", "C", "T", "G"]):
     """
     Returns the score of the maximum scoring alignment of all possible substrings of v and w.
 

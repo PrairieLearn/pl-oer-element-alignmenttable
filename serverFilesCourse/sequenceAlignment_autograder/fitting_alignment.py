@@ -26,7 +26,7 @@ def traceback_fitting(v, w, init_j, pointers):
     return "".join(new_v[::-1]) + "\n" + "".join(new_w[::-1]), path
 
 
-def fitting_align(v, w, alphabet = ["A", "C", "T", "G"]):
+def fitting_alignment(v, w, alphabet = ["A", "C", "T", "G"]):
     """
     Returns the score of the maximum scoring alignment of short and all
     substrings of reference.
