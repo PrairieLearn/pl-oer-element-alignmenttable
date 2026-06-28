@@ -90,21 +90,21 @@
 }
 
 /* Badges for correctness */
-.dp-table .badge-success {
+.dp-table .text-bg-success {
     background-color: #22c55e;
     color: white;
     padding: 5px 10px;
     border-radius: 4px;
 }
 
-.dp-table .badge-danger {
+.dp-table .text-bg-danger {
     background-color: #ef4444;
     color: white;
     padding: 5px 10px;
     border-radius: 4px;
 }
 
-.dp-table .badge-warning {
+.dp-table .text-bg-warning {
     background-color: #fbbf24;
     color: black;
     padding: 5px 10px;
