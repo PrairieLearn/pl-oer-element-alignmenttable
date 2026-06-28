@@ -1,7 +1,5 @@
 import html
 import re
-from typing import Any
-import math
 import chevron
 import lxml.html
 import prairielearn as pl
@@ -26,13 +24,13 @@ DP_TABLE_MUSTACHE_TEMPLATE_NAME = "pl-alignment-table.mustache"
 def prepare(element_html: str, data: pl.QuestionData) -> None:
     """
     Prepare the data for the question.
-    
+
     This function is called before the question is rendered.
-    
+
     Args:
         element_html: The HTML of the element.
         data: The data object for the question.
-        
+
     Returns:
         None
     """
@@ -75,13 +73,13 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
 def render(element_html: str, data: pl.QuestionData) -> str:
     """
     Render the question.
-    
+
     This function is called to render the question.
-    
+
     Args:
         element_html: The HTML of the element.
-        data: The data object for the question. 
-    
+        data: The data object for the question.
+
     Returns:
         str: The rendered question.
     """
@@ -333,13 +331,13 @@ def render(element_html: str, data: pl.QuestionData) -> str:
 def parse(element_html: str, data: pl.QuestionData) -> None:
     """
     Parse the submitted answers.
-    
+
     This function is called to parse the submitted answers.
-    
+
     Args:
         element_html: The HTML of the element.
         data: The data object for the question.
-        
+
     Returns:
         None
     """
@@ -372,9 +370,9 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
                     a_sub = float(a_sub)
                     data["submitted_answers"][answer_name] = pl.to_json(a_sub)
                 except ValueError:
-                    data["format_errors"][
-                        name
-                    ] = "Invalid format. Please enter a valid number."
+                    data["format_errors"][name] = (
+                        "Invalid format. Please enter a valid number."
+                    )
                     data["submitted_answers"][answer_name] = None
 
             answer_name = f"{name}_{row_index}_{col_index}_p"
@@ -395,13 +393,13 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
 def grade(element_html: str, data: pl.QuestionData) -> None:
     """
     Grade the submitted answers.
-    
+
     This function is called to grade the submitted answers.
-    
+
     Args:
         element_html: The HTML of the element.
         data: The data object for the question.
-        
+
     Returns:
         None
     """
