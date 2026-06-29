@@ -431,7 +431,7 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
                 a_tru = pl.from_json(data["correct_answers"].get(answer_name, None))
                 if a_tru is None:
                     break
-                a_sub = data["submitted_answers"].get(answer_name, None)
+                a_sub = pl.from_json(data["submitted_answers"].get(answer_name, None))
                 if a_tru != a_sub:
                     if incorrect_message == "":
                         incorrect_message = f"Number ({v_string[row_index]}, {w_string[col_index]}) at row {row_index}, column {col_index} is incorrect (as indicated by a stripe pattern). Please correct it and check all dependent cells.\n You will only get feedback on the path when all numbers are correct."
@@ -444,7 +444,7 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
     for row_index in range(num_rows):
         for col_index in range(num_columns):
             answer_name = f"{name}_{row_index}_{col_index}_p"
-            a_sub = data["submitted_answers"].get(answer_name, None)
+            a_sub = pl.from_json(data["submitted_answers"].get(answer_name, None))
 
             if a_sub is not None and a_sub is True:
                 highlighted_path.append([row_index, col_index])
