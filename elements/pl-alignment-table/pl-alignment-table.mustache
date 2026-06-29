@@ -28,62 +28,65 @@
     <p class="text-center"> {{incorrect_message}} </p>
 </div>
 {{/incorrect_message}}
-<div class="t-tbl-block">
-    <table class="dp-table rounded-3 overflow-hidden">
-        <thead>
-            <tr>
-                <th></th>
-                {{#columns}}
-                    <th>{{w_letter}}</th>
-                {{/columns}}
-            </tr>
-        </thead>
-        <tbody>
-            {{#rows}}
-            <tr>
-                <td>{{v_letter}}</td>
-                {{#is_material}}
-                    {{#data}}
-                        <td class="{{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}">
-                            {{value}}
-                        </td>
-                    {{/data}}
-                {{/is_material}}
-                {{^is_material}}
-                {{#data}}
-                    <td data-row="{{row_index}}" data-col="{{col_index}}" class="alignment-cell">
-                        <div class="input-container" data-cell="{{name}}_{{row_index}}_{{col_index}}">
-                            {{#path_only}}
-                            <input type="number" step="any" name="{{name}}_{{row_index}}_{{col_index}}" 
-                                class="form-control {{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}" 
-                                onclick="this.select()"
-                                value="{{value}}" placeholder="{{placeholder}}" readonly/>
-                            {{/path_only}}
-                            {{^path_only}}
-                            <input type="number" name="{{name}}_{{row_index}}_{{col_index}}" 
-                                class="form-control {{#boolean}}{{#first_incorrect}}striped-highlight{{/first_incorrect}}{{^first_incorrect}}highlight-true{{/first_incorrect}}{{/boolean}}{{^boolean}}{{#first_incorrect}}striped-background{{/first_incorrect}}{{^first_incorrect}}highlight-false{{/first_incorrect}}{{/boolean}}" 
-                                onclick="this.select()"
-                                value="{{value}}" placeholder="{{placeholder}}"/>
-                            {{/path_only}}
-                            <input type="hidden" class="bool-input" name="{{name}}_{{row_index}}_{{col_index}}_p" value="{{#boolean}}True{{/boolean}}{{^boolean}}False{{/boolean}}" />
-                            <button id="highlight-button" type="button" class="btn btn-sm btn-highlight {{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}"
-                                data-cell="{{name}}_{{row_index}}_{{col_index}}" 
-                                onclick="highlightCell(this)">
-                            <i class="bi bi-highlighter fa-xs"></i>
-                            </button>
-                        </div>
-                    </td>
-                {{/data}}
-                {{/is_material}}
-            </tr>
-            {{/rows}}
-        </tbody>
-    </table> 
-    <span class="input-group-append">
+<div class="t-tbl-block alignment-table-container">
+    <div class="alignment-table-main">
+        <div class="alignment-table-surface">
+            <table class="dp-table rounded-3 overflow-hidden">
+                <thead>
+                    <tr>
+                        <th></th>
+                        {{#columns}}
+                            <th>{{w_letter}}</th>
+                        {{/columns}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#rows}}
+                    <tr>
+                        <td>{{v_letter}}</td>
+                        {{#is_material}}
+                            {{#data}}
+                                <td class="{{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}">
+                                    {{value}}
+                                </td>
+                            {{/data}}
+                        {{/is_material}}
+                        {{^is_material}}
+                        {{#data}}
+                            <td data-row="{{row_index}}" data-col="{{col_index}}" class="alignment-cell">
+                                <div class="input-container" data-cell="{{name}}_{{row_index}}_{{col_index}}">
+                                    {{#path_only}}
+                                    <input type="text" inputmode="decimal" name="{{name}}_{{row_index}}_{{col_index}}" 
+                                        class="form-control alignment-number-input alignment-readonly-number {{#boolean}}highlight-true{{/boolean}}" 
+                                        value="{{value}}" placeholder="{{placeholder}}" readonly/>
+                                    {{/path_only}}
+                                    {{^path_only}}
+                                    <input type="text" inputmode="decimal" name="{{name}}_{{row_index}}_{{col_index}}" 
+                                        class="form-control alignment-number-input {{#boolean}}{{#first_incorrect}}striped-highlight{{/first_incorrect}}{{^first_incorrect}}highlight-true{{/first_incorrect}}{{/boolean}}{{^boolean}}{{#first_incorrect}}striped-background{{/first_incorrect}}{{^first_incorrect}}highlight-false{{/first_incorrect}}{{/boolean}}" 
+                                        onclick="this.select()"
+                                        value="{{value}}" placeholder="{{placeholder}}"/>
+                                    {{/path_only}}
+                                    <input type="hidden" class="bool-input" name="{{name}}_{{row_index}}_{{col_index}}_p" value="{{#boolean}}True{{/boolean}}{{^boolean}}False{{/boolean}}" />
+                                    <button id="highlight-button" type="button" class="btn btn-sm btn-highlight {{#boolean}}highlight-true{{/boolean}}{{^boolean}}highlight-false{{/boolean}}"
+                                        data-cell="{{name}}_{{row_index}}_{{col_index}}" 
+                                        onclick="highlightCell(this)">
+                                    <i class="bi bi-highlighter fa-xs"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        {{/data}}
+                        {{/is_material}}
+                    </tr>
+                    {{/rows}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="alignment-table-toolbar">
         {{#parse_error}}
             <a
                 role="button"
-                class="btn btn-light border d-flex align-items-center text-danger"
+                class="btn btn-light border d-inline-flex align-items-center justify-content-center text-danger alignment-toolbar-button"
                 data-bs-toggle="popover"
                 data-bs-html="true"
                 title="Format Error"
@@ -95,28 +98,28 @@
                 <span class="me-1">Invalid</span> <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
             </a>
         {{/parse_error}}
-    </span>
-    {{^is_material}}
-        <div style="display: flex; flex-direction: column; justify-content: center">
-            {{#info}}
-            <a role="button" class="btn btn-light border" data-bs-toggle="popover" data-bs-html="true" title="DP table" data-bs-content="{{{info}}}" data-bs-placement="auto" data-bs-trigger="focus" tabindex="0">
-                <i class="fa fa-question-circle" aria-hidden="true"></i>
-            </a>
-            {{/info}}
-            {{#correct}}
-                <span class="badge text-bg-success badge-primary py-2"><i class="fas fa-check" aria-hidden="true"></i> 100%</span>
-            {{/correct}}    
-            {{#incorrect}}
-                <span class="badge text-bg-danger badge-primary py-2"><i class="fas fa-times" aria-hidden="true"></i> 0%</span>
-            {{/incorrect}}
-            {{#partial}}
-                <span class="badge text-bg-warning badge-primary py-2"><i class="far fa-circle" aria-hidden="true"></i> {{partial}}%</span>
-            {{/partial}}
-            {{^path_only}}
-            <button type="button" class="btn btn-danger clear-table">Clear Table</button>
-            {{/path_only}}
-        </div>
-    {{/is_material}}
+        {{^is_material}}
+        {{#show_info}}
+        <a role="button" class="btn btn-primary alignment-info-button alignment-toolbar-button" data-alignment-info="true" data-alignment-popover-content="{{{info}}}" tabindex="0" aria-label="DP table instructions" aria-expanded="false">
+            <i class="bi bi-info-lg" aria-hidden="true"></i>
+        </a>
+        {{/show_info}}
+        {{#correct}}
+            <span class="badge text-bg-success badge-primary py-2 alignment-score-badge"><i class="fas fa-check" aria-hidden="true"></i> 100%</span>
+        {{/correct}}    
+        {{#incorrect}}
+            <span class="badge text-bg-danger badge-primary py-2 alignment-score-badge"><i class="fas fa-times" aria-hidden="true"></i> 0%</span>
+        {{/incorrect}}
+        {{#partial}}
+            <span class="badge text-bg-warning badge-primary py-2 alignment-score-badge"><i class="far fa-circle" aria-hidden="true"></i> {{partial}}%</span>
+        {{/partial}}
+        {{^path_only}}
+        <button type="button" class="btn btn-danger clear-table alignment-toolbar-button" aria-label="Clear table" data-alignment-clear="true" aria-expanded="false">
+            <i class="fa fa-eraser" aria-hidden="true"></i>
+        </button>
+        {{/path_only}}
+        {{/is_material}}
+    </div>
 </div>
 {{/question}}
 

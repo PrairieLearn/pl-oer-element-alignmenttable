@@ -2,29 +2,16 @@
 
 /* Background color for when boolean is true */
 .dp-table td.highlight-true,
-.dp-table input[type="number"].highlight-true,
+.dp-table .alignment-number-input.highlight-true,
 .dp-table button.highlight-true {
     background-color: #ffeb3b; /* Or any other color when boolean is true */
 }
 
 /* Background color for when boolean is false */
 .dp-table td.highlight-false,
-.dp-table input[type="number"].highlight-false,
+.dp-table .alignment-number-input.highlight-false,
 .dp-table button.highlight-false {
     background-color: #f9fafb; /* Default light gray background when boolean is false */
-}
-
-
-/* Hide the spinner arrows in WebKit browsers (Chrome, Safari, Edge) */
-.dp-table input[type="number"]::-webkit-outer-spin-button,
-.dp-table input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Hide the spinner arrows in Firefox */
-.dp-table input[type="number"] {
-    -moz-appearance: textfield;
 }
 
 /* Container block adjustments */
@@ -33,6 +20,82 @@
     text-align: center;
     width: 100%;
     display: flex;
+    justify-content: center;
+}
+
+.alignment-table-container {
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.alignment-table-main {
+    flex: 0 1 auto;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.alignment-table-surface {
+    position: relative;
+    display: inline-block;
+    max-width: 100%;
+}
+
+.alignment-info-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alignment-table-toolbar {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 8px;
+    align-self: flex-start;
+}
+
+.alignment-toolbar-button {
+    width: 50px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.alignment-score-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+}
+
+.alignment-confirm-popover {
+    text-align: left;
+}
+
+.alignment-confirm-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+.alignment-table-container.toolbar-below {
+    flex-direction: column;
+    align-items: center;
+}
+
+.alignment-table-container.toolbar-below .alignment-table-main {
+    width: fit-content;
+}
+
+.alignment-table-container.toolbar-below .alignment-table-toolbar {
+    align-self: center;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
 }
 
@@ -112,8 +175,8 @@
 }
 
 /* Focus and hover states for input fields */
-.dp-table input[type="number"]:hover,
-.dp-table input[type="number"]:focus,
+.dp-table .alignment-number-input:hover,
+.dp-table .alignment-number-input:focus,
 .dp-table .btn-highlight:hover,
 .dp-table .btn-highlight:focus {
     border-color: #3b82f6;
@@ -157,7 +220,7 @@
 }
 
 /* Adjust input field size to fit inside the square cell */
-.dp-table input[type="number"] {
+.dp-table .alignment-number-input {
     width: 100%;
     /* Adjust input width to 70% of the cell */
     height: 70%;
@@ -173,6 +236,28 @@
     align-items: center;
     justify-content: center;
     border-radius: 4px 4px 0 0;
+}
+
+.dp-table .alignment-readonly-number {
+    background-color: #f9fafb;
+    cursor: default;
+}
+
+.dp-table .alignment-readonly-number:hover,
+.dp-table .alignment-readonly-number:focus {
+    border-color: #cbd5e1;
+    box-shadow: none;
+}
+
+.dp-table .alignment-input-invalid {
+    border-color: #ffc107 !important;
+    background: #fff3cd !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 193, 7, 0.75);
+}
+
+.dp-table .alignment-input-rejected {
+    border-color: #dc3545 !important;
+    background: #f8d7da !important;
 }
 
 /* Adjust button size and position directly below input */
