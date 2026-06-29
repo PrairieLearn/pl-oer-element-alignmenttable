@@ -86,7 +86,6 @@
 .alignment-table-container.toolbar-below {
     flex-direction: column;
     align-items: center;
-    gap: 6px;
 }
 
 .alignment-table-container.toolbar-below .alignment-table-main {
