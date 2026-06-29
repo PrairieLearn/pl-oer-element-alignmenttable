@@ -7,7 +7,7 @@ If you like this element, you can use it in your own PrairieLearn course by copy
 
 ## `pl-alignment-table` element
 
-This element creates a dymnamic programming (DP) table for sequence alignment algorithms. It can be used both to display non-interactive instructional materials and interactive, auto-graded questions where students fill in cells and highlight the optimal path.
+This element creates a dynamic programming (DP) table for sequence alignment algorithms. It can be used both to display non-interactive instructional materials and interactive, auto-graded questions where students fill in cells and highlight the optimal path.
 
 Note that this element requires a `server.py` script to fill in the table contents or grade answers. Although it is possible to manually generate and grade tables, we recommend using the provided libraries by also copying the scripts from the `serverFilesCourse` folder of this course. See the documentation below and the sample question for details how to configure, randomize and grade this element.
 
@@ -18,7 +18,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 <img src="example-sequence_only.png" width="500">
 
 ```html
-    <pl-dp-table answers-name="q1" is-material="true"></pl-dp-table>
+    <pl-alignment-table answers-name="q1" is-material="true"></pl-alignment-table>
 ```
 
 #### Interactive table where students fill cells and highlight the optimal path
@@ -26,7 +26,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 <img src="example-alignment.png" width="500">
 
 ```html
-  <pl-dp-table answers-name="q2" type="local"></pl-dp-table>
+  <pl-alignment-table answers-name="q2" type="local"></pl-alignment-table>
 ```
 
 #### Pre-filled table with path highlighting only
@@ -34,7 +34,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 <img src="example-score.png" width="500">
 
 ```html
-  <pl-dp-table answers-name="q3" path-only="true" type="fitting"></pl-dp-table>
+  <pl-alignment-table answers-name="q3" path-only="true" type="fitting"></pl-alignment-table>
 ```
 
 ### Element Attributes
@@ -44,7 +44,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 | `is-material`  | boolean (default: `false`) | If `true`, the table is displayed non-interactively as question material, with all cells already filled. |
 | `path-only`    | boolean (default: `false`) | Only relevant if `is-material` is `false`. If `true`, the table is displayed with all cells already filled, asking students to only select the correct path. |
 | `type`         | string (default: `global`) | Only relevant if `is-material` is `false`. Alignment type (`global`, `fitting`, or `local`); this affects feedback given to students during grading. |
-| `placeholder`  | string (default: ``) | Only relevant if `is-material` is `false`. Placeholder text for unfilled table cells. |
+| `placeholder`  | string (default: `""`) | Only relevant if `is-material` is `false`. Placeholder text for unfilled table cells. |
 
 
 ### Sequence Generation
@@ -60,7 +60,7 @@ data["params"]["v"], data["params"]["w"] = generate_paired_sequences(sequence_le
 
 In addition to the sequence length, the function can be custom-tailored using the following named parameters:
 
-- `alphabet` (default: `["A", "C", "G", "T"]`) defined the alphabet to be used in the sequences
+- `alphabet` (default: `["A", "C", "G", "T"]`) defines the alphabet to be used in the sequences
 - `match_prob` (default: `0.3`) defines the probability for a match
 - `delta` (default: `0.2`) defines the probability for a gap opening
 - `epsilon` (default: `0.1`) defines the probability for a gap extension
