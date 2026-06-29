@@ -18,7 +18,7 @@ Note that this element requires a `server.py` script to fill in the table conten
 <img src="example-sequence_only.png" width="500">
 
 ```html
-    <pl-alignment-table answers-name="q1" is-material="true"></pl-alignment-table>
+    <pl-alignment-table answers-name="q1" read-only="true"></pl-alignment-table>
 ```
 
 #### Interactive table where students fill cells and highlight the optimal path
@@ -41,10 +41,12 @@ Note that this element requires a `server.py` script to fill in the table conten
 | Attribute | Type | Description |
 |-----------|------|-------------|
 | `answers-name` | string (required) | Unique identifier for the element |
-| `is-material`  | boolean (default: `false`) | If `true`, the table is displayed non-interactively as question material, with all cells already filled. |
-| `path-only`    | boolean (default: `false`) | Only relevant if `is-material` is `false`. If `true`, the table is displayed with all cells already filled, asking students to only select the correct path. |
-| `type`         | string (default: `global`) | Only relevant if `is-material` is `false`. Alignment type (`global`, `fitting`, or `local`); this affects feedback given to students during grading. |
-| `placeholder`  | string (default: `""`) | Only relevant if `is-material` is `false`. Placeholder text for unfilled table cells. |
+| `read-only`  | boolean (default: `false`) | If `true`, the table is displayed non-interactively as question material, with all cells already filled. |
+| `path-only`    | boolean (default: `false`) | Only relevant if `read-only` is `false`. If `true`, the table is displayed with all cells already filled, asking students to only select the correct path. |
+| `type`         | string (default: `global`) | Only relevant if `read-only` is `false`. Alignment type (`global`, `fitting`, or `local`); this affects feedback given to students during grading. |
+| `placeholder`  | string (default: `""`) | Only relevant if `read-only` is `false`. Placeholder text for unfilled table cells. |
+
+The legacy attribute name `is-material` is still accepted as an alias for `read-only`.
 
 
 ### Sequence Generation
@@ -77,4 +79,4 @@ from sequenceAlignment_autograder.global_alignment import global_alignment
 data["correct_answers"]["q1"] = global_alignment(data["params"]["v"], data["params"]["w"])
 ```
 
-Note that the element will automatically pre-fill the path and/or table contents or use them for grading, based on the table attributes `is-material` and `path-only`. Also note that the chosen alignment type should match the table's `type` attribute. Only the answers defined in `data["correct_answers"]` are used for actual grading, but a type mismatch might lead to inconsistent feedback for students.
+Note that the element will automatically pre-fill the path and/or table contents or use them for grading, based on the table attributes `read-only` and `path-only`. Also note that the chosen alignment type should match the table's `type` attribute. Only the answers defined in `data["correct_answers"]` are used for actual grading, but a type mismatch might lead to inconsistent feedback for students.

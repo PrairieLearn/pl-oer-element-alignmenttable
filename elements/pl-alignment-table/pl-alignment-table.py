@@ -38,6 +38,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
     required_attribs = ["answers-name"]
     optional_attribs = [
         "placeholder",
+        "read-only",
         "is-material",
         "path-only",
         "type",
@@ -70,6 +71,14 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
         raise ValueError(f"Correct answers for {name} not found in data.")
 
 
+def _is_read_only(element) -> bool:
+    return pl.get_boolean_attrib(
+        element,
+        "read-only",
+        pl.get_boolean_attrib(element, "is-material", False),
+    )
+
+
 def render(element_html: str, data: pl.QuestionData) -> str:
     """
     Render the question.
@@ -86,10 +95,8 @@ def render(element_html: str, data: pl.QuestionData) -> str:
     element = lxml.html.fragment_fromstring(element_html)
     name = pl.get_string_attrib(element, "answers-name")
     label = pl.get_string_attrib(element, "label", LABEL_DEFAULT)
-    # Determine if the question is material (informational) or requires input
-    is_material = pl.get_boolean_attrib(
-        element, "is-material", False
-    )  # Default to False if not specified
+    # Determine if the question is read-only (informational) or requires input.
+    is_material = _is_read_only(element)
     path_only = pl.get_boolean_attrib(element, "path-only", False)
     placeholder = pl.get_string_attrib(element, "placeholder", PLACEHOLDER_DEFAULT)
     show_score = pl.get_boolean_attrib(element, "show-score", SHOW_SCORE_DEFAULT)
@@ -177,7 +184,7 @@ def render(element_html: str, data: pl.QuestionData) -> str:
         info_template = "{{#format}}<p>{{{grading_text}}}</p>{{/format}}"
         grading_text = (
             "Click the upper half of each cell to enter a number. You can use the arrow keys to quickly navigate through the table.<br />"
-            "Use the <i class='bi bi-highlighter fa-xs'></i> button to hightlight a cell and create a path that represents the optimum alignment."
+            "Use the <i class='bi bi-highlighter fa-xs'></i> button, or press the space key while a cell is selected, to highlight a cell and create a path that represents the optimum alignment."
         )
         editable = data["editable"]
         info_params = {
@@ -344,8 +351,8 @@ def parse(element_html: str, data: pl.QuestionData) -> None:
     element = lxml.html.fragment_fromstring(element_html)
     name = pl.get_string_attrib(element, "answers-name")
 
-    # Check if the question is marked as material (informational)
-    is_material = pl.get_boolean_attrib(element, "is-material", False)
+    # Check if the question is marked as read-only (informational).
+    is_material = _is_read_only(element)
 
     # If it's material, skip grading
     if is_material:
@@ -408,8 +415,8 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
     element = lxml.html.fragment_fromstring(element_html)
     name = pl.get_string_attrib(element, "answers-name")
 
-    # Check if the question is marked as material (informational)
-    is_material = pl.get_boolean_attrib(element, "is-material", False)
+    # Check if the question is marked as read-only (informational).
+    is_material = _is_read_only(element)
     path_only = pl.get_boolean_attrib(element, "path-only", False)
     alignment_type = pl.get_string_attrib(element, "type", ALIGNMENT_TYPE_DEFAULT)
 
