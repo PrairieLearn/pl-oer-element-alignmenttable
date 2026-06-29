@@ -64,7 +64,7 @@ def prepare(element_html: str, data: pl.QuestionData) -> None:
                 ][col_index]
                 if [row_index, col_index] in path:
                     data["correct_answers"][f"{name}_{row_index}_{col_index}_p"] = True
-        # reomve the original correct answers
+        # Remove the original aggregate correct answer after expanding it.
         data["correct_answers"].pop(name)
     else:
         raise ValueError(f"Correct answers for {name} not found in data.")
@@ -426,7 +426,7 @@ def grade(element_html: str, data: pl.QuestionData) -> None:
     if not path_only:
         for row_index in range(num_rows):
             for col_index in range(num_columns):
-                # cheking the value
+                # checking the value
                 answer_name = f"{name}_{row_index}_{col_index}"
                 a_tru = pl.from_json(data["correct_answers"].get(answer_name, None))
                 if a_tru is None:
